@@ -4,34 +4,50 @@ var upperCase = (Boolean);
 var lowerCase = (Boolean);
 var passLength = 8;
 
+var criteria = "";
+var password = "boo";
 // Get references to the #generate element
-var generateBtn = document.querySelector("#generate");
+var generateBtn = document.querySelector("#generate"); 
 
 // asklegnth function
 var askLength = function() {
- var length = window.prompt("How long do you want your password?");
- length = passLength;
-  if (passLength == null) {
-    redoConfirm = console.confirm("You must choose a length, would like to try again?");
+   passLength= window.prompt("How long do you want your password to be?");
+
+  if (!passLength) {
+    var redoConfirm = window.confirm("You must choose a length, would like to try again?");
     if(redoConfirm) {
       askLength();
+      console.log("yes")
     }
     else {
       passLength = 8;
       return passLength;
     }
+    console.log(passLength)
   }
   return passLength;
 };
   // letter generator 
-  var letterGenerator = function() {
-    return (Math.floor(Math.random() * 77) + 34);
+  var letterGenerator = function(criteria,passLength) {
+    switch(criteria){
+      case "1":
+        charset = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789!@#$%^&*()-_}{|][:;'?><`~";
+        length = passLength;
+        console.log("we made it this far");
+        for (var i=0; i < passLength; i++){
+         password = Math.floor(Math.random() * passLength) 
+        }
+        writePassword();
+        
+    }
+
+    return (Math.floor(Math.random() * criteria.charset) + length + 1);
   };
 
   // generate password
 var generatePassword = function(passLength) {
   passLength = askLength();
-  var password = [""];
+  
 
   specialCharacters = window.confirm("Do you want special characters? Click cancel if no.");
   
@@ -42,46 +58,48 @@ var generatePassword = function(passLength) {
   // special characters & capitals
   if (specialCharacters && upperCase && lowerCase) {
     // all three capital letters, lowercase and special characters
-    console.log("all three");
-
-    for (var i=0; i < passLength.length; i++){
-      password =+ letterGenerator();
+    criteria = "1";
     }
-  }
     else if (specialCharacters && upperCase) {
         // special and uppercase
-        upperCase
+        criteria = "2";
     }
     else if (lowerCase && upperCase) {
       // special and uppercase
+      criteria = "3";
     }
     else if (specialCharacters && lowerCase) {
       // special and uppercase
+      criteria = "4";
     }
     else if (upperCase) {
         // only cap letters
+        criteria = "5";
     }
     else if (lowerCase) {
       // only lowercase letters
+      criteria = "6";
     }
     else if (specialCharacters) {
       // only special characters
+      criteria = "7";
     }
       else{
         // no criteria
+        citeria = "1";
       }
-      return password;
+  letterGenerator(criteria,passLength);
 };
 
 // Write password to the #password input
-var writePassword = function (generatePassword) {
-  var password = generatePassword(passLength);
+var writePassword = function (password) {
   var passwordText = document.querySelector("#password");
 
-  passwordText.value = password;
+  passwordText.value = password.value;
 };
 
-// generatePassword(passLength);
 
 // Add event listener to generate button
 generateBtn.addEventListener("click", generatePassword);
+console.log(password.length);
+
