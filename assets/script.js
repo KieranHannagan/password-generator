@@ -17,8 +17,8 @@ function arrayLowToHigh(low, high) {
 };
 
 // create arrays for password criteria
-var LOWERCASE_CHAR = arrayLowToHigh(65, 90); 
-var UPPERCASE_CHAR = arrayLowToHigh(97, 122);
+var  UPPERCASE_CHAR= arrayLowToHigh(65, 90); 
+var LOWERCASE_CHAR = arrayLowToHigh(97, 122);
 var NUMBER_CHAR = arrayLowToHigh(48, 57);
 var SPECIAL_CHAR = arrayLowToHigh(33, 47).concat(
   arrayLowToHigh(58, 64)
@@ -30,7 +30,7 @@ console.log(LOWERCASE_CHAR)
 console.log(UPPERCASE_CHAR)
 console.log(SPECIAL_CHAR)
 var stringLowerCase = String.fromCharCode.apply(null,LOWERCASE_CHAR)
-var stringNumbers = String.fromCharCode.apply(null,LOWERCASE_CHAR)
+var stringNumbers = String.fromCharCode.apply(null,NUMBER_CHAR)
 var stringUpper = String.fromCharCode.apply(null,UPPERCASE_CHAR)
 var stringSpecial = String.fromCharCode.apply(null,SPECIAL_CHAR)
 console.log(stringLowerCase)
@@ -70,32 +70,29 @@ var generatePassword = function () {
   var upperCase = window.confirm("Do you want capital letters? Click cancel if no.");
 
   var lowerCase = window.confirm("Do you want lowercase letters? Click cancel if no.");
-
-  if (!(specialCharacters && upperCase && lowerCase&&numbers)) {
+// checking for user input
+  if (!(specialCharacters) && !(upperCase) && !(lowerCase) && !(numbers)) {
     return null;
   }
   if (specialCharacters) {
     characters = characters + stringSpecial 
-    console.log(characters)
   }
+
   if (upperCase) {
     characters = characters + stringUpper 
-    console.log(characters)
   }
   if (lowerCase) {
     characters = characters + stringLowerCase 
-    console.log(characters)
-
   }
   if(numbers){
     characters = characters + stringNumbers
   }
-  console.log(characters)
   for (let i = 0; i < passLength; i++) {
     var passwordCharacterCode = characters.charAt(Math.floor(Math.random() * characters.length));
     password.push(passwordCharacterCode);
 
   }
+  console.log(characters)
   return password.join("")
 
 };
@@ -104,16 +101,11 @@ var generatePassword = function () {
 var writePassword = function (password) {
   var passwordText = document.querySelector("#password");
   password = generatePassword();
-  console.log(password);
   passwordText.value = password;
 };
 
 
 // Add event listener to generate button
 generateBtn.addEventListener("click", writePassword);
-console.log(password.length);
 
 
-
-// how to get the string to work
-// how to remove the "" from the string upon returning it
