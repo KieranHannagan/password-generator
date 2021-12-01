@@ -1,105 +1,119 @@
 // Assignment code here
-var specialCharacters = (Boolean);
-var upperCase = (Boolean);
-var lowerCase = (Boolean);
 var passLength = 8;
-
 var criteria = "";
-var password = "boo";
 // Get references to the #generate element
-var generateBtn = document.querySelector("#generate"); 
+var generateBtn = document.querySelector("#generate");
 
-// asklegnth function
-var askLength = function() {
-   passLength= window.prompt("How long do you want your password to be?");
+
+
+
+// create function that created arrays
+function arrayLowToHigh(low, high) {
+  var array = [];
+  for (let i = low; i <= high; i++) {
+    array.push(i)
+  }
+  return array;
+};
+
+// create arrays for password criteria
+var LOWERCASE_CHAR = arrayLowToHigh(65, 90); 
+var UPPERCASE_CHAR = arrayLowToHigh(97, 122);
+var NUMBER_CHAR = arrayLowToHigh(48, 57);
+var SPECIAL_CHAR = arrayLowToHigh(33, 47).concat(
+  arrayLowToHigh(58, 64)
+).concat(
+  arrayLowToHigh(91, 96)
+).concat(
+  arrayLowToHigh(123, 126));
+console.log(LOWERCASE_CHAR)
+console.log(UPPERCASE_CHAR)
+console.log(SPECIAL_CHAR)
+var stringLowerCase = String.fromCharCode.apply(null,LOWERCASE_CHAR)
+var stringNumbers = String.fromCharCode.apply(null,LOWERCASE_CHAR)
+var stringUpper = String.fromCharCode.apply(null,UPPERCASE_CHAR)
+var stringSpecial = String.fromCharCode.apply(null,SPECIAL_CHAR)
+console.log(stringLowerCase)
+console.log(stringUpper)
+console.log(stringSpecial)
+
+
+// asklength function
+var askLength = function () {
+  passLength = window.prompt("How long do you want your password to be?");
 
   if (!passLength) {
     var redoConfirm = window.confirm("You must choose a length, would like to try again?");
-    if(redoConfirm) {
+    if (redoConfirm) {
       askLength();
-      console.log("yes")
     }
     else {
       passLength = 8;
       return passLength;
     }
-    console.log(passLength)
   }
   return passLength;
 };
-  // letter generator 
-  var letterGenerator = function(criteria,passLength) {
-    switch(criteria){
-      case "1":
-        charset = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789!@#$%^&*()-_}{|][:;'?><`~";
-        length = passLength;
-        console.log("we made it this far");
-        for (var i=0; i < passLength; i++){
-         password = Math.floor(Math.random() * passLength) 
-        }
-        writePassword();
-        
-    }
 
-    return (Math.floor(Math.random() * criteria.charset) + length + 1);
-  };
 
-  // generate password
-var generatePassword = function(passLength) {
-  passLength = askLength();
-  
+// generate password
+var generatePassword = function () {
+  var characters = "";
+  var password = [];
+  var passLength = askLength();
 
-  specialCharacters = window.confirm("Do you want special characters? Click cancel if no.");
-  
-  upperCase = window.confirm("Do you want capital letters? Click cancel if no.");
+  var specialCharacters = window.confirm("Do you want special characters? Click cancel if no.");
 
-  lowerCase = window.confirm("Do you want lowercase letters? Click cancel if no.");
-  
-  // special characters & capitals
-  if (specialCharacters && upperCase && lowerCase) {
-    // all three capital letters, lowercase and special characters
-    criteria = "1";
-    }
-    else if (specialCharacters && upperCase) {
-        // special and uppercase
-        criteria = "2";
-    }
-    else if (lowerCase && upperCase) {
-      // special and uppercase
-      criteria = "3";
-    }
-    else if (specialCharacters && lowerCase) {
-      // special and uppercase
-      criteria = "4";
-    }
-    else if (upperCase) {
-        // only cap letters
-        criteria = "5";
-    }
-    else if (lowerCase) {
-      // only lowercase letters
-      criteria = "6";
-    }
-    else if (specialCharacters) {
-      // only special characters
-      criteria = "7";
-    }
-      else{
-        // no criteria
-        citeria = "1";
-      }
-  letterGenerator(criteria,passLength);
+
+  var numbers = window.confirm("Do you want numbers? Click cancel if no.");
+
+  var upperCase = window.confirm("Do you want capital letters? Click cancel if no.");
+
+  var lowerCase = window.confirm("Do you want lowercase letters? Click cancel if no.");
+
+  if (!(specialCharacters && upperCase && lowerCase&&numbers)) {
+    return null;
+  }
+  if (specialCharacters) {
+    characters = characters + stringSpecial 
+    console.log(characters)
+  }
+  if (upperCase) {
+    characters = characters + stringUpper 
+    console.log(characters)
+  }
+  if (lowerCase) {
+    characters = characters + stringLowerCase 
+    console.log(characters)
+
+  }
+  if(numbers){
+    characters = characters + stringNumbers
+  }
+  console.log(characters)
+  for (let i = 0; i < passLength; i++) {
+    var passwordCharacterCode = characters.charAt(Math.floor(Math.random() * characters.length));
+    password.push(passwordCharacterCode);
+
+  }
+  return password.join("")
+
 };
 
 // Write password to the #password input
 var writePassword = function (password) {
   var passwordText = document.querySelector("#password");
-
-  passwordText.value = password.value;
+  password = generatePassword();
+  console.log(password);
+  passwordText.value = password;
 };
 
 
 // Add event listener to generate button
-generateBtn.addEventListener("click", generatePassword);
+generateBtn.addEventListener("click", writePassword);
 console.log(password.length);
 
+
+
+// how to get the string to work
+// how to remove the "" from the string upon returning it
