@@ -1,7 +1,8 @@
 # Password generator
 
 ## Purpose
-The purpose of this assignment is to create a password generator using Java Script. I received a starter code with some HTML and CSS as well as some breif instructions within the javascript file. The intructions told me to create a random password generator with criteria for special characters, capital letters and numbers.
+The purpose of this webpage is to create a password using user input criteria and computing in Java Script. The user cna choose if they want uppercase letters, lowercase letters, special characters and numbers. After answering the prompts, the application will deliver your newly genereated password into a text box where you may copy it and use it. 
+![Screen Shot 2021-12-01 at 5 35 21 PM](https://user-images.githubusercontent.com/88465088/144331270-f0cdbb3a-28c2-4cd4-a7b7-ed4d0a09d18e.png)
 
 ## Built With
 * JavaScript
@@ -9,7 +10,7 @@ The purpose of this assignment is to create a password generator using Java Scri
 * CSS
 
 ## Website
-https://
+https://kieranhannagan.github.io/password-generator/
 
 ## Contribution
 Made with ❤️ by [Kieran Hannagan]
